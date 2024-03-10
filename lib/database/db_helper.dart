@@ -132,15 +132,48 @@ class DatabaseHelper {
   }
 
   double hitungJarak(Wisata wisata, Inputan inputan) {
-    double biaya =
-        (double.parse(inputan.biaya) - double.parse(wisata.biaya)).abs();
-    double popularitas =
-        (double.parse(inputan.popularitas) - double.parse(wisata.popularitas))
-            .abs();
-    double fasilitas =
-        (double.parse(inputan.fasilitas) - double.parse(wisata.fasilitas))
-            .abs();
-    return sqrt(pow(biaya, 2) + pow(popularitas, 2) + pow(fasilitas, 2));
+    // Berikan bobot pada masing-masing kriteria
+    Map<String, double> bobotBiaya = {
+      'Rp. 0 - Rp. 10000': 1,
+      'Rp. 11000 - Rp. 25000': 2,
+      'Rp. 26000 - Rp. 50000': 3,
+      'Rp. 51000 - Rp. 100000': 4,
+      'Diatas Rp. 100000': 5,
+    };
+
+    Map<String, double> bobotPopularitas = {
+      'Bintang 1': 1,
+      'Bintang 2': 2,
+      'Bintang 3': 3,
+      'Bintang 4': 4,
+      'Bintang 5': 5,
+    };
+    
+     Map<String, double> bobotFasilitas = {
+      'Bintang 1': 1,
+      'Bintang 2': 2,
+      'Bintang 3': 3,
+      'Bintang 4': 4,
+      'Bintang 5': 5,
+    };
+
+    Map<String, double> bobotJenis = {
+      'Wisata Alam': 4,
+      'Wisata Buatan': 3,
+      'Wisata Pantai': 2,
+      'Wisata Sejarah': 1,
+    };
+
+ // Hitung jarak berdasarkan bobot kriteria
+    double biaya = bobotBiaya[wisata.biaya]! - bobotBiaya[inputan.biaya]!;
+    double popularitas = bobotPopularitas[wisata.popularitas]! -
+        bobotPopularitas[inputan.popularitas]!;
+    double fasilitas = bobotFasilitas[wisata.fasilitas]! -
+        bobotFasilitas[inputan.fasilitas]!;
+    double jenis =
+        bobotJenis[wisata.jenis]! - bobotJenis[inputan.jenis]!;
+
+    return sqrt(pow(biaya, 2) + pow(popularitas, 2) + pow(fasilitas, 2) + pow(jenis, 2));
   }
 
   double hitungPersentaseKesamaan(

@@ -1,15 +1,17 @@
 class Wisata {
   final int id;
   final String nama;
-  final String biaya;
-  final String popularitas;
-  final String fasilitas;
+  final int biayaMin;
+  final int biayaMax;
+  final int popularitas;
+  final int fasilitas;
   final String jenis;
 
   Wisata({
     required this.id,
     required this.nama,
-    required this.biaya,
+    required this.biayaMin,
+    required this.biayaMax,
     required this.popularitas,
     required this.fasilitas,
     required this.jenis,
@@ -19,7 +21,8 @@ class Wisata {
     return Wisata(
       id: map['id'],
       nama: map['nama'],
-      biaya: map['biaya'],
+      biayaMin: map['biaya_min'],
+      biayaMax: map['biaya_max'],
       popularitas: map['popularitas'],
       fasilitas: map['fasilitas'],
       jenis: map['jenis'],
@@ -28,13 +31,15 @@ class Wisata {
 }
 
 class Inputan {
-  final String biaya;
-  final String popularitas;
-  final String fasilitas;
+  final int biayaMin;
+  final int biayaMax;
+  final int popularitas;
+  final int fasilitas;
   final String jenis;
 
   Inputan({
-    required this.biaya,
+    required this.biayaMin,
+    required this.biayaMax,
     required this.popularitas,
     required this.fasilitas,
     required this.jenis,
@@ -42,7 +47,8 @@ class Inputan {
 
   Map<String, dynamic> toMap() {
     return {
-      'biaya': biaya,
+      'biaya_min': biayaMin,
+      'biaya_max': biayaMax,
       'popularitas': popularitas,
       'fasilitas': fasilitas,
       'jenis': jenis,

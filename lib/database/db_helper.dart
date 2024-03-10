@@ -21,7 +21,7 @@ class DatabaseHelper {
       join(path, 'wisata.db'),
       onCreate: (db, version) async {
         await db.execute(
-          'CREATE TABLE wisata(id INTEGER PRIMARY KEY, nama TEXT, biaya TEXT, popularitas TEXT, fasilitas TEXT, jenis TEXT)',
+          'CREATE TABLE wisata(id INTEGER PRIMARY KEY, nama TEXT, biaya_min INTEGER, biaya_max INTEGER,  popularitas INTEGER, fasilitas INTEGER, jenis TEXT)',
         );
       },
       version: 1,
@@ -32,67 +32,70 @@ class DatabaseHelper {
     final db = await database;
     await db.insert('wisata', {
       'nama': 'Cacaban',
-      'biaya': 'Rp. 0 - Rp. 10000',
-      'popularitas': 'Bintang 4',
-      'fasilitas': 'Bintang 4',
+      'biaya_min': '0',
+      'biaya_max': '10000',
+      'popularitas': '4',
+      'fasilitas': '4',
       'jenis': 'Wisata Buatan'
     });
     await db.insert('wisata', {
       'nama': 'Pemandian Guci',
-      'biaya': 'Rp. 51000 - Rp. 100000',
-      'popularitas': 'Bintang 5',
-      'fasilitas': 'Bintang 5',
+      'biaya_min': '51000',
+      'biaya_max': '100000',
+      'popularitas': '5',
+      'fasilitas': '5',
       'jenis': 'Wisata Alam'
     });
     await db.insert('wisata', {
       'nama': 'Pantai Purwahamba Indah',
-      'biaya': 'Rp. 11000 - Rp. 25000',
-      'popularitas': 'Bintang 4',
-      'fasilitas': 'Bintang 4',
+      'biaya_min': '11000',
+      'biaya_max': '25000',
+      'popularitas': '4',
+      'fasilitas': '4',
       'jenis': 'Wisata Pantai'
     });
-    await db.insert('wisata', {
-      'nama': 'Guci Forest',
-      'biaya': 'Rp. 26000 - Rp. 50000',
-      'popularitas': 'Bintang 5',
-      'fasilitas': 'Bintang 5',
-      'jenis': 'Wisata Alam'
-    });
-    await db.insert('wisata', {
-      'nama': 'Hot Waterboom Guciku',
-      'biaya': 'Rp. 26000 - Rp. 50000',
-      'popularitas': 'Bintang 5',
-      'fasilitas': 'Bintang 5',
-      'jenis': 'Wisata Buatan'
-    });
-    await db.insert('wisata', {
-      'nama': 'Danau Beko',
-      'biaya': 'Rp. 0 - Rp. 10000',
-      'popularitas': 'Bintang 3',
-      'fasilitas': 'Bintang 3',
-      'jenis': 'Wisata Alam'
-    });
-    await db.insert('wisata', {
-      'nama': 'Prabalintang',
-      'biaya': 'Rp. 11000 - Rp. 25000',
-      'popularitas': 'Bintang 3',
-      'fasilitas': 'Bintang 3',
-      'jenis': 'Wisata Alam'
-    });
-    await db.insert('wisata', {
-      'nama': 'Museum Semedo',
-      'biaya': 'Rp. 0 - Rp. 10000',
-      'popularitas': 'Bintang 3',
-      'fasilitas': 'Bintang 4',
-      'jenis': 'Wisata Sejarah'
-    });
-    await db.insert('wisata', {
-      'nama': 'Curug Cantel',
-      'biaya': 'Rp. 11000 - Rp. 25000',
-      'popularitas': 'Bintang 3',
-      'fasilitas': 'Bintang 3',
-      'jenis': 'Wisata Alam'
-    });
+    // await db.insert('wisata', {
+    //   'nama': 'Guci Forest',
+    //   'biaya': 'Rp. 26000 - Rp. 50000',
+    //   'popularitas': 'Bintang 5',
+    //   'fasilitas': 'Bintang 5',
+    //   'jenis': 'Wisata Alam'
+    // });
+    // await db.insert('wisata', {
+    //   'nama': 'Hot Waterboom Guciku',
+    //   'biaya': 'Rp. 26000 - Rp. 50000',
+    //   'popularitas': 'Bintang 5',
+    //   'fasilitas': 'Bintang 5',
+    //   'jenis': 'Wisata Buatan'
+    // });
+    // await db.insert('wisata', {
+    //   'nama': 'Danau Beko',
+    //   'biaya': 'Rp. 0 - Rp. 10000',
+    //   'popularitas': 'Bintang 3',
+    //   'fasilitas': 'Bintang 3',
+    //   'jenis': 'Wisata Alam'
+    // });
+    // await db.insert('wisata', {
+    //   'nama': 'Prabalintang',
+    //   'biaya': 'Rp. 11000 - Rp. 25000',
+    //   'popularitas': 'Bintang 3',
+    //   'fasilitas': 'Bintang 3',
+    //   'jenis': 'Wisata Alam'
+    // });
+    // await db.insert('wisata', {
+    //   'nama': 'Museum Semedo',
+    //   'biaya': 'Rp. 0 - Rp. 10000',
+    //   'popularitas': 'Bintang 3',
+    //   'fasilitas': 'Bintang 4',
+    //   'jenis': 'Wisata Sejarah'
+    // });
+    // await db.insert('wisata', {
+    //   'nama': 'Curug Cantel',
+    //   'biaya': 'Rp. 11000 - Rp. 25000',
+    //   'popularitas': 'Bintang 3',
+    //   'fasilitas': 'Bintang 3',
+    //   'jenis': 'Wisata Alam'
+    // });
   }
 
   Future<List<Wisata>> ambilSemuaWisata() async {
@@ -132,15 +135,14 @@ class DatabaseHelper {
   }
 
   double hitungJarak(Wisata wisata, Inputan inputan) {
-    double biaya =
-        (double.parse(inputan.biaya) - double.parse(wisata.biaya)).abs();
-    double popularitas =
-        (double.parse(inputan.popularitas) - double.parse(wisata.popularitas))
-            .abs();
-    double fasilitas =
-        (double.parse(inputan.fasilitas) - double.parse(wisata.fasilitas))
-            .abs();
-    return sqrt(pow(biaya, 2) + pow(popularitas, 2) + pow(fasilitas, 2));
+    int biayaMin = (inputan.biayaMin) - wisata.biayaMin.abs();
+    int biayaMax = (inputan.biayaMax) - wisata.biayaMax.abs();
+    int popularitas = (inputan.popularitas) - wisata.popularitas.abs();
+    int fasilitas = (inputan.fasilitas) - wisata.fasilitas.abs();
+    return sqrt(pow(biayaMin, 2) +
+        pow(biayaMax, 2) +
+        pow(popularitas, 2) +
+        pow(fasilitas, 2));
   }
 
   double hitungPersentaseKesamaan(

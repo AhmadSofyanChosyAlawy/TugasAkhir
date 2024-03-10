@@ -21,7 +21,7 @@ class DatabaseHelper {
       join(path, 'wisata.db'),
       onCreate: (db, version) async {
         await db.execute(
-          'CREATE TABLE wisata(id INTEGER PRIMARY KEY, nama TEXT, biaya_min INTEGER, biaya_max INTEGER,  popularitas INTEGER, fasilitas INTEGER, jenis TEXT)',
+          'CREATE TABLE wisata(id INTEGER PRIMARY KEY, nama TEXT, biaya_min INTEGER, biaya_max INTEGER,  popularitas INTEGER, fasilitas INTEGER, jenis INTEGER)',
         );
       },
       version: 1,
@@ -32,27 +32,27 @@ class DatabaseHelper {
     final db = await database;
     await db.insert('wisata', {
       'nama': 'Cacaban',
-      'biaya_min': '0',
-      'biaya_max': '10000',
-      'popularitas': '4',
-      'fasilitas': '4',
-      'jenis': 'Wisata Buatan'
+      'biaya_min': 0,
+      'biaya_max': 10000,
+      'popularitas': 4,
+      'fasilitas': 4,
+      'jenis': 3, //'Wisata Buatan'
     });
     await db.insert('wisata', {
       'nama': 'Pemandian Guci',
-      'biaya_min': '51000',
-      'biaya_max': '100000',
-      'popularitas': '5',
-      'fasilitas': '5',
-      'jenis': 'Wisata Alam'
+      'biaya_min': 51000,
+      'biaya_max': 100000,
+      'popularitas': 5,
+      'fasilitas': 5,
+      'jenis': 4, //'Wisata Alam'
     });
     await db.insert('wisata', {
       'nama': 'Pantai Purwahamba Indah',
-      'biaya_min': '11000',
-      'biaya_max': '25000',
-      'popularitas': '4',
-      'fasilitas': '4',
-      'jenis': 'Wisata Pantai'
+      'biaya_min': 11000,
+      'biaya_max': 25000,
+      'popularitas': 4,
+      'fasilitas': 4,
+      'jenis': 2, //'Wisata Pantai'
     });
     // await db.insert('wisata', {
     //   'nama': 'Guci Forest',
@@ -139,10 +139,14 @@ class DatabaseHelper {
     int biayaMax = (inputan.biayaMax) - wisata.biayaMax.abs();
     int popularitas = (inputan.popularitas) - wisata.popularitas.abs();
     int fasilitas = (inputan.fasilitas) - wisata.fasilitas.abs();
-    return sqrt(pow(biayaMin, 2) +
-        pow(biayaMax, 2) +
-        pow(popularitas, 2) +
-        pow(fasilitas, 2));
+    int jenis = (inputan.jenis) - wisata.jenis.abs();
+    return sqrt(
+      pow(biayaMin, 2) +
+          pow(biayaMax, 2) +
+          pow(popularitas, 2) +
+          pow(fasilitas, 2) +
+          pow(jenis, 2),
+    );
   }
 
   double hitungPersentaseKesamaan(

@@ -5,7 +5,7 @@ class Wisata {
   final int biayaMax;
   final int popularitas;
   final int fasilitas;
-  final String jenis;
+  final int jenis;
 
   Wisata({
     required this.id,
@@ -35,7 +35,7 @@ class Inputan {
   final int biayaMax;
   final int popularitas;
   final int fasilitas;
-  final String jenis;
+  final int jenis;
 
   Inputan({
     required this.biayaMin,

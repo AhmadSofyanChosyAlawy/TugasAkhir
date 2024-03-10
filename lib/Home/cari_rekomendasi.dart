@@ -8,10 +8,11 @@ class CariRekomendasi extends StatelessWidget {
   // final biayaController = TextEditingController();
   // final popularitasController = TextEditingController();
   // final fasilitasController = TextEditingController();
+  final jenisController = TextEditingController();
   List<int> biayaVal = [0, 10000];
   int fasilitasVal = 1;
   int popularitasVal = 1;
-  final jenisController = TextEditingController();
+  int jenisval = 4;
 
   CariRekomendasi({super.key});
 
@@ -78,20 +79,16 @@ class CariRekomendasi extends StatelessWidget {
               ],
               decoration: const InputDecoration(labelText: 'Fasilitas'),
             ),
-            DropdownButtonFormField<String>(
-              value: 'Wisata Alam',
+            DropdownButtonFormField<int>(
+              value: 4,
               onChanged: (value) {
-                jenisController.text = value!;
+                jenisval = value!;
               },
               items: const [
-                DropdownMenuItem(
-                    value: 'Wisata Alam', child: Text('Wisata Alam')),
-                DropdownMenuItem(
-                    value: 'Wisata Buatan', child: Text('Wisata Buatan')),
-                DropdownMenuItem(
-                    value: 'Wisata Pantai', child: Text('Wisata Pantai')),
-                DropdownMenuItem(
-                    value: 'Wisata Sejarah', child: Text('Wisata Sejarah')),
+                DropdownMenuItem(value: 4, child: Text('Wisata Alam')),
+                DropdownMenuItem(value: 3, child: Text('Wisata Buatan')),
+                DropdownMenuItem(value: 2, child: Text('Wisata Pantai')),
+                DropdownMenuItem(value: 1, child: Text('Wisata Sejarah')),
               ],
               decoration: const InputDecoration(labelText: 'Jenis Wisata'),
             ),
@@ -105,7 +102,7 @@ class CariRekomendasi extends StatelessWidget {
                   biayaMax: biayaVal[1],
                   popularitas: popularitasVal,
                   fasilitas: fasilitasVal,
-                  jenis: jenisController.text,
+                  jenis: jenisval,
                 );
                 showDialog(
                   context: context,
